@@ -1,0 +1,39 @@
+﻿@model ML.Usuario
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Login</title>
+    <link rel="stylesheet" href="~/css/StyleSheet.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.0/animate.min.css">
+
+</head>
+
+ @using (Html.BeginForm("Login", "Login", FormMethod.Post, new { enctype = "multipart/form-data" }))
+    {
+
+<body>
+    <form action="index.html" class="form-box animated fadeInUp">
+        <h1 class="form-title">SignIn</h1>
+        @Html.TextBoxFor(model => model.Email, new { @class = "form-control", @id = "txtNombre", @placeholder="Ejemp: UserName"})
+
+
+         @Html.TextBoxFor(model => model.Pasword, new { @class = "form-control",@id = "txtPassword"})
+       
+         
+         <button type="submit">
+            Login
+        </button>
+    </form>
+</body>
+}
+</html>
+
+ 

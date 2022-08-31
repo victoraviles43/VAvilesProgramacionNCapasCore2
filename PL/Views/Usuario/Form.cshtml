@@ -1,0 +1,553 @@
+﻿@model ML.Usuario
+@{
+    ViewData["Title"] = "Form";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+}
+
+<h1>Form</h1>
+
+<div>
+
+    <div class="row">
+        <div class="col-md-12">
+            <h3>Usuario</h3>
+            <h5>Ingrese los datos</h5>
+            <hr />
+        </div>
+    </div>
+
+
+
+    @using (Html.BeginForm("Form", "Usuario", FormMethod.Post, new { enctype = "multipart/form-data" }))
+    {
+
+
+        <div class="row">
+            <div class="col-md-3">
+                @Html.TextBoxFor(model => model.IdUsuario, new { @class = "hidden form-control", })
+                @*// @Html.ValidationMessageFor(model => model.IdUsuario)*@
+            </div>
+
+
+            <div class="col-md-3">
+                @Html.LabelFor(model => model.Nombre)
+                <div class="input-group mb-3">
+                    <span class="input-group-text"><i class="bi bi-person-fill" style="color: midnightblue"></i></span>
+                    @Html.TextBoxFor(model => model.Nombre, new { @class = "form-control ", @id = "txtNombre", @placeholder="Ejemp: Nombre", autocomplete = "off", @onkeypress = "return SoloLetras(event,'lblNombre')"})
+
+                </div>
+                @Html.ValidationMessageFor(model => model.Nombre, null, new { @class = "text-danger"})
+                @Html.Label("", null, new {@id = "lblNombre"})
+            </div>
+
+            <div class="col-md-2">
+                @Html.LabelFor(model => model.ApellidoPaterno)
+                <div class="input-group mb-3">
+                    <span class="input-group-text"><i class="bi bi-person-fill" style="color: midnightblue"></i></span>
+                    @Html.TextBoxFor(model => model.ApellidoPaterno, new { @class = "form-control" ,@id = "txtApellidoPaterno", @placeholder="",@onkeypress = "return SoloLetras(event, 'lblApellidoPaterno')" })
+                    @Html.ValidationMessageFor(model => model.ApellidoPaterno,null, new { @class = "text-danger"}))
+                </div>
+                @Html.Label("", null, new {@id = "lblApellidoPaterno"})
+            </div>
+
+            <div class="col-md-2">
+                @Html.LabelFor(model => model.ApellidoMaterno)
+                <div class="input-group mb-4">
+                    <span class="input-group-text"><i class="bi bi-person-fill" style="color: midnightblue"></i></span>
+                    @Html.TextBoxFor(model => model.ApellidoMaterno, new { @class = "form-control" ,@id = "txtApellidoMaterno", @placeholder="",@onkeypress = "return SoloLetras(event, 'lblApellidoMaterno')" })
+                    @Html.ValidationMessageFor(model => model.ApellidoMaterno,null, new { @class = "text-danger"}))
+                </div>
+                @Html.Label("", null, new {@id = "lblApellidoMaterno"})
+            </div>
+
+           
+            <div class="col-md-3">
+                @Html.LabelFor(model => model.Email)
+                <div class="input-group mb-3">
+                    <span class="input-group-text"><i class="bi bi-envelope-fill" style="color: midnightblue"></i></span>
+                    @Html.TextBoxFor(model => model.Email, new { @class = "form-control", @id = "txtEmail",@placeholder="",@onkeypress = " return ValidarEmail(event,'lblErrorEmail2')"})
+                    @Html.ValidationMessageFor(model => model.Email)
+                    <label id="lblErrorEmail2"></label>
+
+                </div>
+            </div>
+
+            <div class="col-md-3">
+                @Html.LabelFor(model => model.Email)
+                <div class="input-group mb-3">
+                    <span class="input-group-text"><i class="bi bi-envelope-fill" style="color: midnightblue"></i></span>
+                    @Html.TextBoxFor(model => model.Email, new { @class = "form-control",@id = "txtEmail2", @placeholder="",@onkeyup = " return VerificarEmail()"})
+                    @Html.ValidationMessageFor(model => model.Email)
+                    <label id="lblErrorEmail"></label>
+                </div>
+            </div>
+
+
+            @*-------------*@
+
+            <div class="col-md-3">
+                @Html.LabelFor(model => model.Pasword)
+                <div class="input-group mb-3">
+                    <span class="input-group-text"><i class="bi bi-envelope-fill" style="color: midnightblue"></i></span>
+                    @Html.TextBoxFor(model => model.Pasword, new { @class = "form-control",@id = "txtPassword"})
+                    @Html.ValidationMessageFor(model => model.Pasword)
+                    <label id="lblErrorContra"></label>
+
+                </div>
+            </div>
+
+            <div class="col-md-3">
+                @Html.LabelFor(model => model.Pasword)
+                <div class="input-group mb-3">
+                    <span class="input-group-text"><i class="bi bi-envelope-fill" style="color: midnightblue"></i></span>
+                    @Html.TextBoxFor(model => model.Pasword, new { @class = "form-control",@id = "txtPassword2", @placeholder="",@onkeyup = "VerificarPassWord()"})
+                    @Html.ValidationMessageFor(model => model.Pasword)
+                    <label id="lblErrorContra"></label>
+                </div>
+            </div>
+
+            @*-------------*@
+
+            <div class="col-md-2">
+                @Html.LabelFor(model => model.Sexo)
+                <div class="input-group mb-3">
+                    <span class="input-group-text"><i class="bi bi-gender-ambiguous" style="color: midnightblue"></i></span>
+                    @Html.TextBoxFor(model => model.Sexo, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.Sexo)
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                @Html.LabelFor(model => model.Telefono)
+                <div class="input-group mb-2">
+                    <span class="input-group-text"><i class="bi bi-telephone-fill" style="color: midnightblue"></i></span>
+                    @Html.TextBoxFor(model => model.Telefono, new { @class = "form-control" ,@id = "txtTelefono", @placeholder="5548916523",@onkeypress = "return SoloNumeros(event, 'lblTelefono')"})
+                    @Html.ValidationMessageFor(model => model.Telefono)
+                </div>
+                @Html.Label("", null, new {@id = "lblTelefono"})
+            </div>
+
+            <div class="col-md-4">
+                @Html.LabelFor(model => model.Celular)
+                <div class="input-group mb-3">
+                    <span class="input-group-text"><i class="bi bi-phone-fill" style="color: midnightblue"></i></span>
+                    @Html.TextBoxFor(model => model.Celular, new { @class = "form-control" ,@id = "txtCelular", @placeholder="5548916523",@onkeypress = "return SoloNumeros(event, 'lblCelular')"})
+
+                </div>
+                @Html.ValidationMessageFor(model => model.Celular ,null, new { @class = "text-danger"}))
+                @Html.Label("", null, new {@id = "lblCelular"})
+            </div>
+
+            <div class="col-md-3">
+                @Html.LabelFor(model => model.FechaNacimiento);
+                <div class="input-group mb-3">
+                    <span class="input-group-text"><i class="bi bi-calendar-date-fill" style="color: midnightblue"></i></span>
+                    @Html.TextBoxFor(model => model.FechaNacimiento, new { @id="txtFechaNacimiento" })
+                    @Html.ValidationMessageFor(model => model.FechaNacimiento, null, new { @class = "text-danger"})
+                </div>
+            </div>
+            <div class="col-md-2">
+                @Html.LabelFor(model => model.CURP)
+                <div class="input-group mb-4">
+                    <span class="input-group-text"><i class="bi bi-file-earmark-check-fill" style="color: midnightblue"></i></span>
+                    @Html.TextBoxFor(model => model.CURP, new { @class = "form-control"  ,@id = "txtCurp", @placeholder="Ejemp: AIAV970129HDFVLC08", autocomplete = "off", @onkeypress = "return ValidarCurp(event,'lblErrorCurp')"})
+                    @Html.ValidationMessageFor(model => model.CURP,null, new { @class = "text-danger"})
+                </div>
+                <label id= "lblErrorCurp"></label>
+            </div>
+
+
+
+            <!---->
+        <div class="col-md-4">
+                @Html.LabelFor(model => model.Rol.IdRol)
+                <div class="input-group mb-3">
+                    <span class="input-group-text"><i class="bi bi-segmented-nav" style="color: midnightblue"></i></span>
+
+                    @Html.DropDownListFor(model => model.Rol.IdRol, new SelectList(Model.Rol.Roles, "IdRol", "Nombre"), "Selecciona una opcion", new { @class = "form-control" })
+                </div>
+            </div>
+
+
+
+            <div class="col-md-3">
+                @Html.LabelFor(model => model.Direccion.Colonia.Municipio.Estado.Pais.IdPais, new { @class = "control-label col-md-2" })
+                <div class="input-group mb-3">
+                    <span class="input-group-text"><i class="bi bi-globe2" style="color: midnightblue"></i></span>
+                    @Html.DropDownListFor(model => model.Direccion.Colonia.Municipio.Estado.Pais.IdPais, new SelectList(Model.Direccion.Colonia.Municipio.Estado.Pais.Paises, "IdPais", "Nombre"), "Selecciona una pais", new { @class = "form-control text-danger",@id ="ddlPais"}))
+                </div>
+            </div>
+
+
+
+
+            <div class="col-md-4">
+                @Html.LabelFor(model => model.Direccion.Colonia.Municipio.Estado.Estados)
+                <div class="input-group mb-3">
+                    <span class="input-group-text" id="basic-addon1"><i class="bi bi-calendar-plus-fill" style="color: midnightblue"></i></span>
+                    @if (Model.Direccion.Colonia.Municipio.Estado.Estados == null)
+                    {
+                        @Html.DropDownListFor(model => model.Direccion.Colonia.Municipio.Estado.IdEstado, new SelectList(string.Empty, "Value", "Text"), "Selecciona una opción", new { @class = "form-control", @id = "ddlEstado" })
+                        @Html.ValidationMessageFor(model => model.Direccion.Colonia.Municipio.Estado.IdEstado)
+                    }
+                    else
+                    {
+                        @Html.DropDownListFor(model => model.Direccion.Colonia.Municipio.Estado.IdEstado, new SelectList(Model.Direccion.Colonia.Municipio.Estado.Estados, "IdEstado", "Nombre"), "Selecciona una opción", new { @class = "form-control", @id = "ddlEstado" })
+                        @Html.ValidationMessageFor(model => model.Direccion.Colonia.Municipio.Estado.IdEstado)
+                    }
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                @Html.LabelFor(model => model.Direccion.Colonia.Municipio.Municipios)
+                <div class="input-group mb-3">
+                    <span class="input-group-text" id="basic-addon1"><i class="bi bi-calendar-plus-fill" style="color: midnightblue"></i></span>
+                    @if (Model.Direccion.Colonia.Municipio.Municipios == null)
+                    {
+                        @Html.DropDownListFor(model => model.Direccion.Colonia.Municipio.IdMunicipio, new SelectList(string.Empty, "Value", "Text"), "Selecciona una opción", new { @class = "form-control", @id = "ddlMunicipio" })
+                        @Html.ValidationMessageFor(model => model.Direccion.Colonia.Municipio.IdMunicipio)
+                    }
+                    else
+                    {
+                        @Html.DropDownListFor(model => model.Direccion.Colonia.Municipio.IdMunicipio, new SelectList(Model.Direccion.Colonia.Municipio.Municipios, "IdMunicipio", "Nombre"), "Selecciona una opción", new { @class = "form-control", @id = "ddlMunicipio" })
+                        @Html.ValidationMessageFor(model => model.Direccion.Colonia.Municipio.IdMunicipio)
+                    }
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                @Html.LabelFor(model => model.Direccion.Colonia.Colonias)
+                <div class="input-group mb-3">
+                    <span class="input-group-text" id="basic-addon1"><i class="bi bi-calendar-plus-fill" style="color: midnightblue"></i></span>
+                    @if (Model.Direccion.Colonia.Colonias == null)
+                    {
+                        @Html.DropDownListFor(model => model.Direccion.Colonia.IdColonia, new SelectList(string.Empty, "Value", "Text"), "Selecciona una opción", new { @class = "form-control", @id = "ddlColonia" })
+                        @Html.ValidationMessageFor(model => model.Direccion.Colonia.IdColonia)
+                    }
+                    else
+                    {
+                        @Html.DropDownListFor(model => model.Direccion.Colonia.IdColonia, new SelectList(Model.Direccion.Colonia.Colonias, "IdColonia", "Nombre"), "Selecciona una opción", new { @class = "form-control", @id = "ddlColonia" })
+                        @Html.ValidationMessageFor(model => model.Direccion.Colonia.IdColonia)
+                    }
+                </div>
+            </div>
+
+            @*---------------------------*@
+            <div class="col-md-2">
+                @Html.LabelFor(model => model.Direccion.Calle)
+                <div class="input-group mb-4">
+                    <span class="input-group-text"><i class="bi bi-file-earmark-check-fill" style="color: midnightblue"></i></span>
+                    @Html.TextBoxFor(model => model.Direccion.Calle, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.Direccion.Calle)
+                </div>
+            </div>
+
+            <div class="col-md-2">
+                @Html.LabelFor(model => model.Direccion.NumeroInterior)
+                <div class="input-group mb-4">
+                    <span class="input-group-text"><i class="bi bi-file-earmark-check-fill" style="color: midnightblue"></i></span>
+                    @Html.TextBoxFor(model => model.Direccion.NumeroInterior, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.Direccion.NumeroInterior)
+                </div>
+            </div>
+
+            <div class="col-md-2">
+                @Html.LabelFor(model => model.Direccion.NumeroExterior)
+                <div class="input-group mb-4">
+                    <span class="input-group-text"><i class="bi bi-file-earmark-check-fill" style="color: midnightblue"></i></span>
+                    @Html.TextBoxFor(model => model.Direccion.NumeroExterior, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.Direccion.NumeroExterior)
+                </div>
+            </div>
+
+            @*   <div class="col-md-2">
+                @Html.LabelFor(model => model.Direccion.Colonia.IdColonia)
+                <div class="input-group mb-4">
+                <span class="input-group-text"><i class="bi bi-file-earmark-check-fill" style="color: midnightblue"></i></span>
+                @Html.TextBoxFor(model => model.Direccion.Colonia.IdColonia, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.Direccion.Colonia.IdColonia)
+                </div>
+                </div>*@
+            @*---------------------------*@
+
+
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" value="@ViewBag.Accion" class="btn btn-success" />
+                </div>
+            </div>
+        </div>
+
+        @*---------------------------*@
+
+        <div class="col-md-3">
+
+            @Html.LabelFor(model=> model.Imagen)
+
+            <div class="input-group mb-3">
+                <span class="input-group-text" id="basic-addon1"><i class="bi bi-card-image"></i></span>
+                <input id="IFImage" type='file' class="form-control" name="Imagen" onchange="validateFile(this), readURL(this);  " />
+            </div>
+
+            @if (Model.Imagen != null)
+            {
+
+                <img id="Img" src="data:image/*;base64,@Model.Imagen" style="width:250px ; height:250px" />
+
+            }
+            else
+            {
+                <img id="Img" src="~/Imagenes/sinimagen.png" style="width:250px ; height:250px" />
+            }
+
+
+        </div>
+        @Html.HiddenFor(model => model.Imagen)
+
+
+
+
+        @*---------------------------*@
+    }
+</div>
+
+<div class="row">
+    <div class="col-md-2">
+        @Html.ActionLink("Regresar", "GetAll", "Usuario", htmlAttributes: new { @class = "btn btn-danger" })
+    </div>
+</div>
+
+
+
+@section Scripts
+    {
+<script src="~/lib/jquery/dist/jquery.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script>
+<link rel="stylesheet" href="//code.jquery.com/ui/1.13.1/themes/base/jquery-ui.css">
+<link rel="stylesheet" href="/resources/demos/style.css">
+<script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+<script src="https://code.jquery.com/ui/1.13.1/jquery-ui.js"></script>
+
+
+<script type="text/javascript">
+    $(document).ready(function() {
+        $("#ddlPais").change(function() {
+            $("#ddlEstado").empty();
+            $.ajax({
+                type: 'GET',
+                url: '@Url.Action("EstadoGetByIdPais")',
+                dataType: 'json',
+                data: { IdPais: $("#ddlPais").val() },
+                success: function(estados) {
+                    $("#ddlEstado").append('<option value="0">' + 'Seleccione una opción' + '</option>');
+                    $.each(estados, function(i, estados) {
+                        $("#ddlEstado").append('<option value="'
+                            + estados.idEstado + '">'
+                            + estados.nombre + '</option>');
+                    });
+                },
+                error: function(ex) {
+                    alert('Failed.' + ex);
+                }
+            });
+        });
+
+
+        $("#ddlEstado").change(function() {
+            $("#ddlMunicipio").empty();
+            $.ajax({
+                type: 'GET',
+                url: '@Url.Action("MunicipioGetByEstado")',
+                dataType: 'json',
+                data: { IdEstado: $("#ddlEstado").val() },
+                success: function(municipios) {
+                    $("#ddlMunicipio").append('<option value="0">' + 'Seleccione una opción' + '</option>');
+                    $.each(municipios, function(i, municipios) {
+                        $("#ddlMunicipio").append('<option value="'
+                            + municipios.idMunicipio + '">'
+                            + municipios.nombre + '</option>');
+                    });
+                },
+                error: function(ex) {
+                    alert('Failed.' + ex);
+                }
+            });
+        });
+
+
+        $("#ddlMunicipio").change(function() {
+            $("#ddlColonia").empty();
+            $.ajax({
+                type: 'GET',
+                url: '@Url.Action("ColoniaGetByMunicipio")',
+                dataType: 'json',
+                data: { IdMunicipio: $("#ddlMunicipio").val() },
+                success: function(colonias) {
+                    $("#ddlMunicipio").append('<option value="0">' + 'Seleccione una opción' + '</option>');
+                    $.each(colonias, function(i, colonias) {
+                        $("#ddlColonia").append('<option value="'
+                            + colonias.idColonia + '">'
+                            + colonias.nombre + '</option>');
+                    });
+                },
+                error: function(ex) {
+                    alert('Failed.' + ex);
+                }
+            });
+        });
+    });
+    //--------------
+    function validateFile() {
+        var allowedExtension = ['jpeg', 'jpg'];
+        var fileExtension = document.getElementById('IFImage').value.split('.').pop().toLowerCase();
+        var isValidFile = false;
+        for (var index in allowedExtension) {
+            if (fileExtension === allowedExtension[index]) {
+                isValidFile = true;
+                break;
+            }
+        }
+        if (!isValidFile) {
+            alert('Las extensiones permitidas son : *.' + allowedExtension.join(', *.'));
+            document.getElementById('IFImage').value = ""
+        }
+        return isValidFile;
+    }
+    function readURL(input) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+            reader.onload = function(e) {
+                $('#Img')
+                    .attr('src', e.target.result);
+            };
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+    $(function() {
+        $("#txtFechaNacimiento").datepicker({dateFormat: 'dd-mm-yy',
+                              changeMonth: true,
+                              changeYear: true});
+    });
+    //function SoloLetras(e){
+    //            var regex = /^[a-zA-Z]+$/;
+    //            var letra = e.key;
+    //            if(regex.test(letra)){
+    //                $("#txtNombre").css({ "color": "green" });
+    //                return true;
+    //            }
+    //            else{
+    //                $("#lblNombre").text('Solo se aceptan letras');
+    //                $('#lblNombre').css({ "color": "red" });
+    //                return false;
+    //            }
+    //        }
+
+            function SoloLetras(e, controlId) {
+            var caracter = e.key;
+            if ( !/^[a-zA-Z]+$/g.test(caracter)) {
+                $('#' + controlId).text("Solo se aceptan letras");
+                $('#' + controlId).css({ "color": "red" });
+                return false;
+            }
+            else {
+                $('#' + controlId).text("");
+                return true;
+            }
+                }
+
+
+
+                function SoloNumeros(e, controlId) {
+                var caracter = e.key;
+                if (!/^[0-9]/g.test(caracter)) {
+                    $('#' + controlId).text("Solo se aceptan numeros");
+                    $('#' + controlId).css({ "color": "red" });
+                    return false;
+                }
+                else {
+                    $('#' + controlId).text("");
+                    return true;
+                }
+            }
+
+            
+                     function VerificarPassWord(){
+
+                pass1 = document.getElementById('txtPassword');
+                pass2 = document.getElementById('txtPassword2');
+
+                if(pass1.value != pass2.value)
+                {
+                    pass2.style.borderColor = "red";
+                    $('#lblErrorContra' + controlId).text("Las password no coinciden");
+                    $('#lblErrorContra' + controlId).css({"color" : "red"});
+                    return false;
+
+                }else{
+                    pass1.style.borderColor = "green";
+                    pass2.style.borderColor = "green";
+                    $('#lblErrorContra' + controlId).text("");
+                    return true;
+                }
+            }
+
+                 function VerificarEmail(){
+
+                email1 = document.getElementById('txtEmail');
+                email2 = document.getElementById('txtEmail2');
+
+                if(email1.value != email2.value)
+                {
+                    email2.style.borderColor = "red";
+                    $('#lblErrorEmail' + controlId).text("Los email  no coinciden");
+                    $('#lblErrorEmail' + controlId).css({"color" : "red"});
+                    return false;
+
+                }else{
+                    email1.style.borderColor = "green";
+                    email2.style.borderColor = "green";
+                    $('#lblErrorContra' + controlId).text("");
+                    return true;
+                }
+            }
+
+
+                  function ValidarEmail(){
+            
+                var email = document.getElementById("txtEmail").value;
+                var lblErrorEmail2 = document.getElementById("lblErrorEmail2");
+                lblErrorEmail2.innerHTML = "";
+                var expr = /^[-w.%+]{1,64}@@(?:[A-Z0-9-]{1,63}\.){1,125}[A-Z]{2,63}$/;
+                if(!expr.test(email))
+                {
+                    lblError.innerHTML = "El correo No es valido";
+                }
+            }
+
+    
+                  function ValidarCurp(){
+            
+                var email = document.getElementById("txtCurp").value;
+                var lblError = document.getElementById("lblErrorCurp");
+                lblErrorCurp.innerHTML = "";
+                var expr =/^([A-Z][AEIOUX][A-Z]{2}\d{2}(?:0[1-9]|1[0-2])(?:0[1-9]|[12]\d|3[01])[HM](?:AS|B[CS]|C[CLMSH]|D[FG]|G[TR]|HG|JC|M[CNS]|N[ETL]|OC|PL|Q[TR]|S[PLR]|T[CSL]|VZ|YN|ZS)[B-DF-HJ-NP-TV-Z]{3}[A-Z\d])(\d)$/;
+                if(!expr.test(email))
+                {
+                    lblErrorCurp.innerHTML = "El CURP no es valido";
+                }
+            }
+
+             function ValidarPassword(){
+            
+                var pass = document.getElementById("txtPassword").value;
+                var lblError = document.getElementById("lblPassword");
+                lblErrorCurp.innerHTML = "";
+                var expr ="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$";
+                {
+                    lblErrorCurp.innerHTML = "EL password no es valido ";
+                }
+            }
+</script>
+
+}
